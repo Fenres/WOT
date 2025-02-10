@@ -1,21 +1,20 @@
-package com.example.tanks
+package com.example.tanks.drawers
 
-import android.content.Context
 import android.graphics.Color
 import android.view.View
 import android.widget.FrameLayout
+import com.example.tanks.CELL_SIZE
 
-class GritDrawer(private val context: Context) {
+
+class GritDrawer(private val container: FrameLayout?) {
     private val allLinea = mutableListOf<View>()
 
     fun remaveGrit() {
-        val container = binding.container
         allLinea.forEach {
-            container.removeView(it)
+            container?.removeView(it)
         }
     }
     fun drawGrit() {
-        val container = binding.container
         drawHorizontalLines(container)
         drawVerticalLines(container)
     }
@@ -23,7 +22,7 @@ class GritDrawer(private val context: Context) {
     private fun drawHorizontalLines(container: FrameLayout?) {
         var topMargin = 0
         while (topMargin <= container!!.height) {
-            val horizontalLine = View(context)
+            val horizontalLine = View(container.context)
             val layoutParams = FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, 1)
             topMargin += CELL_SIZE
             layoutParams.topMargin = topMargin
@@ -37,7 +36,7 @@ class GritDrawer(private val context: Context) {
     private fun drawVerticalLines(container: FrameLayout?) {
         var leftMargin = 0
         while (leftMargin <= container!!.width) {
-            val verticalLine = View(context)
+            val verticalLine = View(container.context)
             val layoutParams = FrameLayout.LayoutParams(1, FrameLayout.LayoutParams.MATCH_PARENT)
             leftMargin += CELL_SIZE
             layoutParams.leftMargin = leftMargin

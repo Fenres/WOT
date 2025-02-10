@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
@@ -15,15 +14,13 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        >
+        app:layout_constraintVertical_bias="0.0">
 
-    <ImageView
-        android:id="@+id/myTank"
-        android:layout_width="@dimen/cell_size"
-        android:layout_height="@dimen/cell_size"
-        app:srcCompat="@drawable/tank"
-         />
+        <ImageView
+            android:id="@+id/myTank"
+            android:layout_width="@dimen/cell_size"
+            android:layout_height="@dimen/cell_size"
+            app:srcCompat="@drawable/tank" />
     </FrameLayout>
 
     <LinearLayout
@@ -34,45 +31,36 @@
         android:orientation="vertical"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/editor_clear"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_clear"
             android:layout_width="@dimen/cell_size"
             android:layout_height="@dimen/cell_size"
-            >
-        </ImageView>
+            android:layout_margin="8dp"
+            android:src="@drawable/ic_clear" />
 
         <ImageView
             android:id="@+id/editor_brick"
-            android:layout_margin="8dp"
-            android:src="@drawable/brick"
             android:layout_width="@dimen/cell_size"
             android:layout_height="@dimen/cell_size"
-            >
-
-        </ImageView>
+            android:layout_margin="8dp"
+            android:src="@drawable/brick" />
 
         <ImageView
             android:id="@+id/editor_concrete"
-            android:layout_margin="8dp"
-            android:src="@drawable/concrete"
             android:layout_width="@dimen/cell_size"
             android:layout_height="@dimen/cell_size"
-            >
-        </ImageView>
+            android:layout_margin="8dp"
+            android:src="@drawable/concrete" />
 
         <ImageView
             android:id="@+id/editor_grass"
-            android:layout_margin="8dp"
-            android:src="@drawable/grass"
             android:layout_width="@dimen/cell_size"
             android:layout_height="@dimen/cell_size"
-            >
-        </ImageView>
+            android:layout_margin="8dp"
+            android:src="@drawable/grass" />
     </LinearLayout>
 
 
