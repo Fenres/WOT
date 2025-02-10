@@ -7,7 +7,6 @@ android {
     namespace = "com.example.tanks"
     compileSdk = 35
 
-
     defaultConfig {
         applicationId = "com.example.tanks"
         minSdk = 24
