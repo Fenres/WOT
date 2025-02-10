@@ -8,6 +8,8 @@ import android.view.KeyEvent.KEYCODE_DPAD_RIGHT
 import android.view.KeyEvent.KEYCODE_DPAD_UP
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginLeft
@@ -22,6 +24,7 @@ const val CELL_SIZE = 50
 lateinit var binding: ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private var editMode = false
     private val gritDrawer by lazy {
         GritDrawer(this)
     }
@@ -34,6 +37,17 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.title = "Menu"
         }
 
+    private fun switchEditMode() {
+        if (editMode) {
+            gritDrawer.remaveGrit()
+            binding.materialsContainer.visibility = INVISIBLE
+        } else {
+            gritDrawer.drawGrit()
+            binding.materialsContainer.visibility = VISIBLE
+        }
+        editMode = !editMode
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.settings, menu)
         return true
@@ -42,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_settings -> {
-                gritDrawer.drawGrit()
+                switchEditMode()
                 return true
             }
 
