@@ -3,6 +3,7 @@ package com.example.tanks.drawers
 import android.view.View
 import android.widget.FrameLayout
 import com.example.tanks.CELL_SIZE
+import com.example.tanks.Unit.checkViewCanMoveThrounghBorder
 import com.example.tanks.binding
 import com.example.tanks.enums.Direction
 import com.example.tanks.enums.Direction.DOWN
@@ -42,9 +43,8 @@ class TankDrawer(val container: FrameLayout) {
         }
 
         val nextCoordinate = Coordinate(layoutParams.topMargin, layoutParams.leftMargin)
-        if (checkTankCanMoveThrounghBorder(
-                nextCoordinate,
-                myTank
+        if (myTank.checkViewCanMoveThrounghBorder(
+                nextCoordinate
             ) && checkTankCanMoveThrounghMaterial(nextCoordinate, elementsOnCoordinate)
         ) {
             binding.container.removeView(binding.myTank)
@@ -67,16 +67,16 @@ class TankDrawer(val container: FrameLayout) {
         return true
     }
 
-    private fun checkTankCanMoveThrounghBorder(coordinate: Coordinate, myTank: View): Boolean {
-        if (coordinate.top >= 0 &&
-            coordinate.top + myTank.height <= binding.container.height &&
-            coordinate.left >= 0 &&
-            coordinate.left + myTank.width <= binding.container.width)
-        {
-            return true
-        }
-        return false
-    }
+//    private fun checkTankCanMoveThrounghBorder(coordinate: Coordinate, myTank: View): Boolean {
+//        if (coordinate.top >= 0 &&
+//            coordinate.top + myTank.height <= binding.container.height &&
+//            coordinate.left >= 0 &&
+//            coordinate.left + myTank.width <= binding.container.width)
+//        {
+//            return true
+//        }
+//        return false
+//    }
 
     private fun getTankCoordinates(topLeftCoordinate: Coordinate): List<Coordinate> {
         val coordinateList = mutableListOf<Coordinate>()
@@ -87,9 +87,8 @@ class TankDrawer(val container: FrameLayout) {
         return coordinateList
     }
 
-    private fun getElementByCoordinates(coordinate: Coordinate, elementsOnCoordinate: List<Element>) =
+    private fun getElementByCoordinates(
+        coordinate: Coordinate, elementsOnCoordinate: List<Element>
+    ) =
         elementsOnCoordinate.firstOrNull { it.coordinate == coordinate }
-
-
-
 }
