@@ -5,6 +5,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import com.example.tanks.CELL_SIZE
 import com.example.tanks.R
+import com.example.tanks.Unit.getElementByCoordinates
 import com.example.tanks.enums.Material
 import com.example.tanks.models.Coordinate
 import com.example.tanks.models.Element
@@ -25,7 +26,7 @@ class ElementsDrawer(val container: FrameLayout) {
     }
 
     private fun drawOrReplaceView(coordinate: Coordinate) {
-        val viewOnCoordinate = getElementByCoordinates(coordinate)
+        val viewOnCoordinate = getElementByCoordinates(coordinate, elementsOnCoordinate)
         if (viewOnCoordinate == null) {
             drawView(coordinate)
             return
@@ -41,7 +42,7 @@ class ElementsDrawer(val container: FrameLayout) {
     }
 
     private fun eraseView(coordinate: Coordinate) {
-        val elementOnCoordinate = getElementByCoordinates(coordinate)
+        val elementOnCoordinate = getElementByCoordinates(coordinate, elementsOnCoordinate)
         if (elementOnCoordinate != null) {
             val erasingView = container.findViewById<View>(elementOnCoordinate.viewId)
             container.removeView(erasingView)
@@ -70,9 +71,6 @@ class ElementsDrawer(val container: FrameLayout) {
         container.addView(view)
         elementsOnCoordinate.add(Element(viewId, currentMaterial, coordinate))
     }
-
-    private fun getElementByCoordinates(coordinate: Coordinate) =
-        elementsOnCoordinate.firstOrNull { it.coordinate == coordinate }
 
 
 }

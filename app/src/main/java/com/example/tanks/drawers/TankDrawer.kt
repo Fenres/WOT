@@ -12,6 +12,7 @@ import com.example.tanks.enums.Direction.RIGHT
 import com.example.tanks.enums.Direction.UP
 import com.example.tanks.models.Coordinate
 import com.example.tanks.models.Element
+import com.example.tanks.Unit.getElementByCoordinates
 
 class TankDrawer(val container: FrameLayout) {
     var currentDirection = Direction.UP
@@ -87,8 +88,5 @@ class TankDrawer(val container: FrameLayout) {
         return coordinateList
     }
 
-    private fun getElementByCoordinates(
-        coordinate: Coordinate, elementsOnCoordinate: List<Element>
-    ) =
-        elementsOnCoordinate.firstOrNull { it.coordinate == coordinate }
+
 }
