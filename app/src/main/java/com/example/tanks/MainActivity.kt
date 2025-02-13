@@ -6,14 +6,17 @@ import android.view.KeyEvent.KEYCODE_DPAD_DOWN
 import android.view.KeyEvent.KEYCODE_DPAD_LEFT
 import android.view.KeyEvent.KEYCODE_DPAD_RIGHT
 import android.view.KeyEvent.KEYCODE_DPAD_UP
+import android.view.KeyEvent.KEYCODE_SPACE
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tanks.databinding.ActivityMainBinding
+import com.example.tanks.drawers.BulletDrawer
 import com.example.tanks.drawers.ElementsDrawer
 import com.example.tanks.drawers.GritDrawer
+import com.example.tanks.drawers.TankDrawer
 import com.example.tanks.enums.Direction.DOWN
 import com.example.tanks.enums.Direction.LEFT
 import com.example.tanks.enums.Direction.RIGHT
@@ -30,6 +33,14 @@ class MainActivity : AppCompatActivity() {
     }
     private val elementsDrawer by lazy {
         ElementsDrawer(binding.container)
+    }
+
+    private val tankDrawer by lazy {
+        TankDrawer(binding.container)
+    }
+
+    private val bulletDrawer by lazy {
+        BulletDrawer(binding.container)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,10 +89,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         when (keyCode) {
-            KEYCODE_DPAD_UP -> elementsDrawer.move(binding.myTank, UP)
-            KEYCODE_DPAD_DOWN -> elementsDrawer.move(binding.myTank, DOWN)
-            KEYCODE_DPAD_LEFT -> elementsDrawer.move(binding.myTank, LEFT)
-            KEYCODE_DPAD_RIGHT -> elementsDrawer.move(binding.myTank, RIGHT)
+            KEYCODE_DPAD_UP -> tankDrawer.move(binding.myTank, UP, elementsDrawer.elementsOnCoordinate)
+            KEYCODE_DPAD_DOWN -> tankDrawer.move(binding.myTank, DOWN, elementsDrawer.elementsOnCoordinate)
+            KEYCODE_DPAD_LEFT -> tankDrawer.move(binding.myTank, LEFT, elementsDrawer.elementsOnCoordinate)
+            KEYCODE_DPAD_RIGHT -> tankDrawer.move(binding.myTank, RIGHT, elementsDrawer.elementsOnCoordinate)
+            KEYCODE_SPACE -> bulletDrawer.drawBullet(binding.myTank, tankDrawer.currentDirection)
         }
         return super.onKeyDown(keyCode, event)
     }
