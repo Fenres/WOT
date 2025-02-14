@@ -18,8 +18,8 @@ fun getElementByCoordinates(
     elementsOnCoordinate: List<Element>
 ): Element? {
     for (element in elementsOnCoordinate) {
-        for (height in 0 <= until < element.height) {
-            for (width in 0 <= until < element.width) {
+        for (height in 0 until element.height) {
+            for (width in 0 until element.width) {
                 val searchCoordinate = Coordinate(
                     top = element.coordinate.top + height * CELL_SIZE,
                     left = element.coordinate.left + width * CELL_SIZE
