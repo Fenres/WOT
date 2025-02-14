@@ -9,7 +9,7 @@ import android.view.KeyEvent.KEYCODE_DPAD_UP
 import android.view.KeyEvent.KEYCODE_SPACE
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View.INVISIBLE
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tanks.databinding.ActivityMainBinding
@@ -66,17 +66,28 @@ class MainActivity : AppCompatActivity() {
         return@setOnTouchListener true
         }
         elementsDrawer.drawElementsList(levelStorage.loadLevel())
+        hideSettings()
         }
 
     private fun switchEditMode() {
-        if (editMode) {
-            gritDrawer.remaveGrit()
-            binding.materialsContainer.visibility = INVISIBLE
-        } else {
-            gritDrawer.drawGrit()
-            binding.materialsContainer.visibility = VISIBLE
-        }
         editMode = !editMode
+        if (editMode) {
+            showSettings()
+        } else {
+            hideSettings()
+        }
+    }
+
+    private fun showSettings() {
+        gritDrawer.drawGrit()
+        binding.materialsContainer.visibility = VISIBLE
+        elementsDrawer.changeElementsVisibility(true)
+    }
+
+    private fun hideSettings() {
+        gritDrawer.remaveGrit()
+        binding.materialsContainer.visibility = GONE
+        elementsDrawer.changeElementsVisibility(false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
