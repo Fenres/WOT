@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.tanks.databinding.ActivityMainBinding
 import com.example.tanks.drawers.BulletDrawer
 import com.example.tanks.drawers.ElementsDrawer
+import com.example.tanks.drawers.EnamyDrawer
 import com.example.tanks.drawers.GritDrawer
 import com.example.tanks.drawers.TankDrawer
 import com.example.tanks.enums.Direction.DOWN
@@ -47,6 +48,10 @@ class MainActivity : AppCompatActivity() {
         LevelStorage(this)
     }
 
+    private val enemyDrawer by lazy {
+        EnamyDrawer(binding.container)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -59,8 +64,6 @@ class MainActivity : AppCompatActivity() {
         binding.editorConcrete.setOnClickListener { elementsDrawer.currentMaterial = Material.CONCRETE }
         binding.editorGrass.setOnClickListener { elementsDrawer.currentMaterial = Material.GRASS }
         binding.editorEagle.setOnClickListener { elementsDrawer.currentMaterial = Material.EAGLE }
-        binding.editorEnemyRespawn.setOnClickListener { elementsDrawer.currentMaterial = Material.ENEMY_TANK_RESPAWN }
-        binding.editorPlayerRespawn.setOnClickListener { elementsDrawer.currentMaterial = Material.PLAYER_TANK_RESPAWN }
         binding.container.setOnTouchListener { _, event ->
             elementsDrawer.onTouchContainer(event.x, event.y)
         return@setOnTouchListener true
@@ -81,13 +84,11 @@ class MainActivity : AppCompatActivity() {
     private fun showSettings() {
         gritDrawer.drawGrit()
         binding.materialsContainer.visibility = VISIBLE
-        elementsDrawer.changeElementsVisibility(true)
     }
 
     private fun hideSettings() {
         gritDrawer.remaveGrit()
         binding.materialsContainer.visibility = GONE
-        elementsDrawer.changeElementsVisibility(false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
