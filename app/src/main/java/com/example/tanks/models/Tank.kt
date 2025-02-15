@@ -5,12 +5,15 @@ import android.widget.FrameLayout
 import com.example.tanks.CELL_SIZE
 import com.example.tanks.Unit.checkViewCanMoveThrounghBorder
 import com.example.tanks.Unit.getElementByCoordinates
+import com.example.tanks.Unit.runOnUiThread
 import com.example.tanks.binding
 import com.example.tanks.enums.Direction
 import com.example.tanks.enums.Direction.DOWN
 import com.example.tanks.enums.Direction.LEFT
 import com.example.tanks.enums.Direction.RIGHT
 import com.example.tanks.enums.Direction.UP
+import com.example.tanks.enums.Material
+import kotlin.random.Random
 
 
 class Tank(
@@ -30,13 +33,27 @@ class Tank(
                 nextCoordinate
             ) && element.checkTankCanMoveThrounghMaterial(nextCoordinate, elementsOnCoordinate)
         ) {
-            binding.container.removeView(binding.myTank)
-            binding.container.addView(binding.myTank)
+            emulateViewMoving(container, view)
             element.coordinate = nextCoordinate
         } else {
             element.coordinate = currentCoordinate
             (view.layoutParams as FrameLayout.LayoutParams).topMargin = currentCoordinate.top
             (view.layoutParams as FrameLayout.LayoutParams).leftMargin = currentCoordinate.left
+            changDirectionForEnemyTank()
+        }
+    }
+
+    private fun changDirectionForEnemyTank() {
+        if (element.material == Material.ENEMY_TANK) {
+            val randomDirection = Direction.entries[Random.nextInt(Direction.entries.size)]
+            this.direction = randomDirection
+        }
+    }
+
+    private fun emulateViewMoving(container: FrameLayout, view: View){
+        container.runOnUiThread {
+            binding.container.removeView(view)
+            binding.container.addView(view, 0)
         }
     }
 
