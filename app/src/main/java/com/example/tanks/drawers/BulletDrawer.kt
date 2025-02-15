@@ -8,14 +8,15 @@ import com.example.tanks.CELL_SIZE
 import com.example.tanks.R
 import com.example.tanks.Unit.checkViewCanMoveThrounghBorder
 import com.example.tanks.Unit.getElementByCoordinates
+import com.example.tanks.Unit.runOnUiThread
 import com.example.tanks.enums.Direction
 import com.example.tanks.models.Coordinate
 import com.example.tanks.models.Element
 
 private const val BULLET_WIDTH = 15
-private const val BULLET_HEIGHT = 15
+private const val BULLET_HEIGHT = 25
 
-class BulletDrawer(val container: FrameLayout) {
+class BulletDrawer(private val container: FrameLayout) {
 
     private var canBulletGoFurther = true
     private var bulletThread: Thread? = null
@@ -48,12 +49,12 @@ class BulletDrawer(val container: FrameLayout) {
                         Coordinate(
                             (bullet.layoutParams as FrameLayout.LayoutParams).topMargin,
                             (bullet.layoutParams as FrameLayout.LayoutParams).leftMargin))
-                    (container.context as Activity).runOnUiThread {
+                    container.runOnUiThread {
                         container.removeView(bullet)
                         container.addView(bullet)
                     }
                 }
-                (container.context as Activity).runOnUiThread {
+                container.runOnUiThread {
                     container.removeView(bullet)
                 }
             })
@@ -113,9 +114,7 @@ class BulletDrawer(val container: FrameLayout) {
     private fun removeView(element: Element?) {
         val activity = container.context as Activity
         activity.runOnUiThread {
-            if (element != null) {
-                container.removeView(activity.findViewById(element.viewId))
-            }
+            container.removeView(activity.findViewById(element!!.viewId))
         }
     }
 
