@@ -2,8 +2,8 @@ package com.example.tanks.drawers
 
 import android.view.View
 import android.widget.FrameLayout
-import android.widget.ImageView
 import com.example.tanks.CELL_SIZE
+import com.example.tanks.Unit.drawElement
 import com.example.tanks.Unit.getElementByCoordinates
 import com.example.tanks.enums.Material
 import com.example.tanks.models.Coordinate
@@ -87,7 +87,6 @@ class ElementsDrawer(val container: FrameLayout) {
         return elements
     }
 
-
     private fun removeUnwantedInstances() {
         if (currentMaterial.elementsAmountOnScreen != 0) {
             val erasingElement = elementsOnCoordinate.filter { it.material ==   currentMaterial }
@@ -99,23 +98,14 @@ class ElementsDrawer(val container: FrameLayout) {
 
     private fun drawView(coordinate: Coordinate) {
         removeUnwantedInstances()
-        val view = ImageView(container.context)
-        val layoutParams = FrameLayout.LayoutParams(
-            currentMaterial.width * CELL_SIZE,
-            currentMaterial.height * CELL_SIZE)
-        view.setImageResource(currentMaterial.image)
-        layoutParams.topMargin = coordinate.top
-        layoutParams.leftMargin = coordinate.left
         val element = Element(
             material = currentMaterial,
             coordinate = coordinate,
             width = currentMaterial.width,
             height = currentMaterial.height
         )
-        view.id = element.viewId
-        view.layoutParams = layoutParams
-        view.scaleType = ImageView.ScaleType.FIT_XY
-        container.addView(view)
+        element.drawElement(container)
         elementsOnCoordinate.add(element)
     }
+
 }

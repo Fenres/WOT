@@ -9,7 +9,7 @@ import android.view.KeyEvent.KEYCODE_DPAD_UP
 import android.view.KeyEvent.KEYCODE_SPACE
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View.GONE
+import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tanks.databinding.ActivityMainBinding
@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideSettings() {
         gritDrawer.remaveGrit()
-        binding.materialsContainer.visibility = GONE
+        binding.materialsContainer.visibility = INVISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -102,13 +102,26 @@ class MainActivity : AppCompatActivity() {
                 switchEditMode()
                 return true
             }
+
             R.id.menu_save -> {
                 levelStorage.seveLevel(elementsDrawer.elementsOnCoordinate)
                 return true
             }
 
+            R.id.memu_play -> {
+                startTheGame()
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun startTheGame() {
+        if (editMode) {
+            return
+        }
+        enemyDrawer.startEnemyDrawing(elementsDrawer.elementsOnCoordinate)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

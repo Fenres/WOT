@@ -1,6 +1,9 @@
 package com.example.tanks.Unit
 
+import android.app.Activity
 import android.view.View
+import android.widget.FrameLayout
+import android.widget.ImageView
 import com.example.tanks.CELL_SIZE
 import com.example.tanks.binding
 import com.example.tanks.models.Coordinate
@@ -31,4 +34,20 @@ fun getElementByCoordinates(
         }
     }
     return null
+}
+
+fun Element.drawElement(container: FrameLayout) {
+    val view = ImageView(container.context)
+    val layoutParams = FrameLayout.LayoutParams(
+        this.material.width * CELL_SIZE,
+        this.material.height * CELL_SIZE)
+    this.material.image?.let { view.setImageResource(it) }
+    layoutParams.topMargin = coordinate.top
+    layoutParams.leftMargin = coordinate.left
+    view.id = this.viewId
+    view.layoutParams = layoutParams
+    view.scaleType = ImageView.ScaleType.FIT_XY
+    (container.context as Activity).runOnUiThread {
+        container.addView(view)
+    }
 }
