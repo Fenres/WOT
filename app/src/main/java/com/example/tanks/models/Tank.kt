@@ -7,6 +7,7 @@ import com.example.tanks.Unit.checkViewCanMoveThrounghBorder
 import com.example.tanks.Unit.getElementByCoordinates
 import com.example.tanks.Unit.runOnUiThread
 import com.example.tanks.binding
+import com.example.tanks.drawers.BulletDrawer
 import com.example.tanks.enums.Direction
 import com.example.tanks.enums.Direction.DOWN
 import com.example.tanks.enums.Direction.LEFT
@@ -19,6 +20,7 @@ import kotlin.random.Random
 class Tank(
     val element: Element,
     var direction: Direction,
+    val bulletDrawer: BulletDrawer
 ) {
     fun move(
         direction: Direction,
